@@ -1,0 +1,24 @@
+---
+- name: Deploy index.html on Nginx
+  hosts: nginx # Name of the host group defined in the inventory file
+
+  tasks:
+    
+    - name: Create Nginx document root directory
+      become: true
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0777'
+
+    - name: Copy build/* to Nginx document root
+      copy:
+        src: build/  # Path to your local index.html file
+        dest: /var/www/html/index.html  # Destination path on the target server
+        mode: '0777'  # File permissions (adjust as needed)
+
+    - name: Restart Nginx service
+      become: true  # Run the task with root privileges
+      service:
+        name: nginx
+        state: restarted

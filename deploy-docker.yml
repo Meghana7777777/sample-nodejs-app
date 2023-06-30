@@ -1,0 +1,23 @@
+---
+- name: Build Docker image and run container
+  hosts: nginx
+  become: yes
+
+  tasks:
+    - name: Copy Dockerfile
+      copy:
+        src: Dockerfile
+        dest: /home/ubuntu
+     
+    - name: Copy build file
+      copy:
+        src: /opt/jenkins/workspace/VisOps/t055/sample-nodejs-app/deploy-on-nginx(nodejs)/build
+        dest: /home/ubuntu
+        remote_src: false
+ 
+
+    - name: Build Docker image
+      command: docker build -t nodejs-image /home/ubuntu/
+
+    - name: Run Docker container
+      command: docker run -it -d -p 8001:3000 nodejs-image

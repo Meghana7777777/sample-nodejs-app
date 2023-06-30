@@ -1,0 +1,10 @@
+; -*-mode: ansible; coding: utf-8;-*-
+
+
+[nginx]
+
+nginx_nodejs     ansible_host=54.144.142.224    ansible_port=22     ansible_user=ubuntu     ansible_ssh_private_key_file="/opt/jenkins/workspace/VisOps/t055/sample-nodejs-app/deploy-on-nginx(nodejs)/jenkins-key.pem"
+
+
+[all:vars]
+ansible_ssh_pipelining=no
